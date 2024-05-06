@@ -12,7 +12,7 @@ namespace StackMultiplier
             MODNAME = "StackMultiplier",
             AUTHOR = "erkle64",
             GUID = AUTHOR + "." + MODNAME,
-            VERSION = "0.1.0";
+            VERSION = "0.1.1";
 
         public static LogSource log;
 
@@ -36,7 +36,6 @@ namespace StackMultiplier
         }
 
         public const ItemTemplate.ItemTemplateFlags exclusionFlags =
-            ItemTemplate.ItemTemplateFlags.HANDHELD |
             ItemTemplate.ItemTemplateFlags.MINING_TOOL |
             ItemTemplate.ItemTemplateFlags.TRAIN_VEHICLE |
             ItemTemplate.ItemTemplateFlags.RAIL_MINER |
@@ -57,12 +56,11 @@ namespace StackMultiplier
             public static void ItemTemplateOnLoad(ItemTemplate __instance)
             {
                 var stackMultiplier = Plugin.stackMultiplier.Get();
-                if (stackMultiplier > 0.0f && stackMultiplier != 1.0f)
+                if (stackMultiplier > 0.0f && stackMultiplier != 1.0f
+                    && (__instance.flags & exclusionFlags) == 0
+                    && __instance.stackSize > 1)
                 {
-                    if ((__instance.flags & exclusionFlags) == 0)
-                    {
-                        __instance.stackSize = (uint)Mathf.CeilToInt(__instance.stackSize * stackMultiplier);
-                    }
+                    __instance.stackSize = (uint)Mathf.CeilToInt(__instance.stackSize * stackMultiplier);
                 }
             }
         }
