@@ -1,0 +1,9 @@
+{
+  "identifier": "erkle64.StackMultiplier",
+  "displayName": "StackMultiplier",
+  "assetBundles": [ ],
+  "assemblies": [
+    "StackMultiplier.dll"
+  ]
+}
+
